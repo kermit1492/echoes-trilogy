@@ -996,7 +996,7 @@ footer {
 
 <!-- NAVIGATION -->
 <nav id="mainNav">
-  <a href="#" class="nav-logo"><span class="nav-logo-text">Do not trust the silence</span></a>
+  <a href="#" class="nav-logo"><span class="nav-logo-text"></span></a>
   <ul class="nav-links">
     <li><a href="#premise">Synopsis</a></li>
     <li><a href="#trilogy">Trilogy</a></li>
@@ -1432,8 +1432,8 @@ updateGlow();
 // ============ MORPHING NAV LOGO ============
 const logoText = document.querySelector('.nav-logo-text');
 const sectionPhrases = [
-  { id: 'hero',       text: 'Do not trust the silence' },
-  { id: 'premise',    text: 'Seven tapes. One question.' },
+  { id: 'hero',       text: '' },
+  { id: 'premise',    text: 'Do not trust the silence' },
   { id: 'opening',    text: 'The silence has a voice' },
   { id: 'trilogy',    text: 'Sintra. New York. Beyond.' },
   { id: 'excerpt',    text: 'Listen carefully' },
@@ -1443,11 +1443,11 @@ const sectionPhrases = [
   { id: 'timeline',   text: 'This story finds you' },
 ];
 
-let currentPhrase = 'Do not trust the silence';
+let currentPhrase = '';
 
 function updateLogoText() {
   const scrollY = window.scrollY + window.innerHeight * 0.3;
-  let newPhrase = 'Do not trust the silence';
+  let newPhrase = '';
 
   for (let i = sectionPhrases.length - 1; i >= 0; i--) {
     const el = document.getElementById(sectionPhrases[i].id);
