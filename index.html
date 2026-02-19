@@ -108,8 +108,20 @@ nav.scrolled {
   text-decoration: none;
   opacity: 0.8;
   transition: opacity 0.3s;
+  position: relative;
+  min-width: 280px;
 }
 .nav-logo:hover { opacity: 1; }
+
+.nav-logo-text {
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.nav-logo-text.fading {
+  opacity: 0;
+  transform: translateY(-6px);
+}
 
 .nav-links {
   display: flex;
@@ -984,7 +996,7 @@ footer {
 
 <!-- NAVIGATION -->
 <nav id="mainNav">
-  <a href="#" class="nav-logo">Echoes</a>
+  <a href="#" class="nav-logo"><span class="nav-logo-text">Do not trust the silence</span></a>
   <ul class="nav-links">
     <li><a href="#premise">Synopsis</a></li>
     <li><a href="#trilogy">Trilogy</a></li>
@@ -995,7 +1007,7 @@ footer {
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-vortex"></div>
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -1093,7 +1105,7 @@ footer {
         <div class="trilogy-card-subtitle">Book I · Gothic Horror</div>
         <div class="trilogy-card-genre">Gothic Horror · Portugal · 1987–Present</div>
         <div class="trilogy-card-desc">
-          An archivist inherits seven magnetic tapes and a letter with no signature. They lead him to Sintra, Portugal — a city where fog clings to ancient stones and silence has a voice. Some doors were never meant to be opened.
+          An archivist inherits seven magnetic tapes and a letter with no signature. They lead him to Sintra, Portugal — a city where fog clings to ancient stones and silence has a voice. What he discovers will not stay in Sintra.
         </div>
       </div>
       <div class="trilogy-card reveal reveal-delay-2">
@@ -1123,10 +1135,10 @@ footer {
   <div class="atmosphere-band-bg"></div>
   <div class="atmosphere-text">
     <div class="atmosphere-main reveal">
-      Do not listen to the silence.
+      It didn't start in Sintra.
     </div>
     <div class="atmosphere-sub reveal reveal-delay-1">
-      Sometimes it answers.
+      It won't end there.
     </div>
   </div>
 </div>
@@ -1180,15 +1192,15 @@ footer {
         <div class="char-desc">Historian, skeptic, Markus's oldest friend. Born in Sintra, he knows its legends better than anyone. He has his own reasons for returning — reasons he has never spoken about.</div>
       </div>
     </div>
+    <p class="reveal" style="margin-top: 3rem; text-align: center; font-family: 'Crimson Pro', serif; font-size: 0.95rem; font-style: italic; color: var(--mist);">There are others. In other cities. Looking for the same thing.</p>
   </div>
 </section>
-
-<!-- SETTING -->
 <section class="world section-padding" id="world">
   <div class="container">
     <div class="section-label reveal">Setting</div>
     <div class="section-divider reveal reveal-delay-1"></div>
     <h2 class="section-title reveal reveal-delay-2">Sintra, Portugal</h2>
+    <p class="premise-text reveal reveal-delay-3" style="color: var(--mist); font-size: 1rem; margin-bottom: 3rem; max-width: 600px;">This is where it begins. Later, the geography changes — from fog to glass towers, from tunnels to the spaces between stars.</p>
     <div class="world-items">
       <div class="world-item reveal reveal-delay-1">
         <div class="world-item-icon">Place</div>
@@ -1224,7 +1236,7 @@ footer {
         How far would you go to find the answer to the question that has haunted you since childhood?
       </h2>
       <p class="philosophy-answer reveal reveal-delay-3">
-        Some stories are about heroes who fight evil. This is not one of them. This is a story about <em>the price of knowing</em> — and whether the mind that finally reaches the truth can still recognize itself.
+        Some stories are about heroes who fight evil. This is not one of them. This is a story about <em>the price of knowing</em> — and whether the mind that finally reaches the truth can still recognize itself. It begins in a house in Sintra. It does not end on this planet.
       </p>
     </div>
   </div>
@@ -1276,6 +1288,16 @@ footer {
   </div>
 </section>
 
+<!-- LATIN STRIP 3 — TRILOGY WHISPER -->
+<div class="latin-strip">
+  <div class="latin-text reveal">
+    A domo ad astra, ab astris ad silentium
+  </div>
+  <div class="latin-translation reveal reveal-delay-1">
+    From the house to the stars, from the stars to the silence
+  </div>
+</div>
+
 <!-- CTA -->
 <section class="cta-section">
   <div class="symbol-container reveal" style="margin-bottom:3rem;">
@@ -1293,6 +1315,7 @@ footer {
   <h2 class="cta-title reveal">You've read the opening.<br>Now you need to know what's on the tapes.</h2>
   <p class="cta-sub reveal reveal-delay-1">Book I — Shadows of Sintra</p>
   <a href="#" class="cta-btn reveal reveal-delay-2">Get the Book</a>
+  <p class="reveal reveal-delay-3" style="margin-top: 3rem; font-family: 'Crimson Pro', serif; font-size: 0.9rem; font-style: italic; color: var(--mist);">The first of three doors.</p>
 </section>
 
 <!-- FOOTER -->
@@ -1303,7 +1326,7 @@ footer {
     <path d="M4 20 C18 14, 18 26, 36 20" stroke="rgba(45,212,191,0.2)" stroke-width="0.5" fill="none"/>
   </svg>
   <div class="footer-text">
-    Echoes of the Forgotten Past &nbsp;·&nbsp; © 2025 &nbsp;·&nbsp; Some Doors Were Never Meant to Be Opened
+    Echoes of the Forgotten Past &nbsp;·&nbsp; © 2025 &nbsp;·&nbsp; Sintra · New York · The Stars
   </div>
 </footer>
 
@@ -1405,6 +1428,46 @@ function updateGlow() {
   requestAnimationFrame(updateGlow);
 }
 updateGlow();
+
+// ============ MORPHING NAV LOGO ============
+const logoText = document.querySelector('.nav-logo-text');
+const sectionPhrases = [
+  { id: 'hero',       text: 'Do not trust the silence' },
+  { id: 'premise',    text: 'Seven tapes. One question.' },
+  { id: 'opening',    text: 'The silence has a voice' },
+  { id: 'trilogy',    text: 'Sintra. New York. Beyond.' },
+  { id: 'excerpt',    text: 'Listen carefully' },
+  { id: 'characters', text: 'Some doors don\u2019t close' },
+  { id: 'world',      text: 'The fog knows your name' },
+  { id: 'philosophy', text: 'How much truth can you hold?' },
+  { id: 'timeline',   text: 'This story finds you' },
+];
+
+let currentPhrase = 'Do not trust the silence';
+
+function updateLogoText() {
+  const scrollY = window.scrollY + window.innerHeight * 0.3;
+  let newPhrase = 'Do not trust the silence';
+
+  for (let i = sectionPhrases.length - 1; i >= 0; i--) {
+    const el = document.getElementById(sectionPhrases[i].id);
+    if (el && el.offsetTop <= scrollY) {
+      newPhrase = sectionPhrases[i].text;
+      break;
+    }
+  }
+
+  if (newPhrase !== currentPhrase) {
+    logoText.classList.add('fading');
+    setTimeout(() => {
+      logoText.textContent = newPhrase;
+      logoText.classList.remove('fading');
+      currentPhrase = newPhrase;
+    }, 300);
+  }
+}
+
+window.addEventListener('scroll', updateLogoText);
 
 // ============ SMOOTH SCROLL ============
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
