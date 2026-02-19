@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Echoes of the Forgotten Past — A Trilogy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --void: #030508;
+  --abyss: #0a0e14;
+  --deep: #0d1117;
+  --ink: #141b24;
+  --shadow: #1a222d;
+  --mist: #2a3444;
+  --pale: #8a9bb0;
+  --bone: #c4cdd9;
+  --parchment: #dce3ec;
+  --teal: #2dd4bf;
+  --teal-dim: #1a8a7a;
+  --teal-glow: #0ff0d4;
+  --phosphor: #39ff8e;
+  --blood: #8b2020;
+  --blood-glow: #cc3333;
+  --gold: #c9a84c;
+  --gold-dim: #8a7234;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--teal-dim) var(--void);
+}
+
+body {
+  background: var(--void);
+  color: var(--bone);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+::selection {
+  background: var(--teal-dim);
+  color: var(--parchment);
+}
+
+/* ============ GLOBAL FOG OVERLAY ============ */
+#fog-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(45,212,191,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(57,255,142,0.08) 0%, transparent 50%);
+  animation: fogDrift 20s ease-in-out infinite alternate;
+}
+
+@keyframes fogDrift {
+  0% { transform: translateX(-20px) translateY(0); opacity: 0.03; }
+  50% { opacity: 0.06; }
+  100% { transform: translateX(20px) translateY(-10px); opacity: 0.03; }
+}
+
+/* ============ PARTICLE CANVAS ============ */
+#particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============ NAVIGATION ============ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.6s ease;
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(3,5,8,0.92);
+  backdrop-filter: blur(20px);
+  padding: 1rem 3rem;
+  border-bottom: 1px solid rgba(45,212,191,0.1);
+}
+
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+.nav-logo:hover { opacity: 1; }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--pale);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--teal);
+  transition: width 0.3s;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* ============ HERO SECTION ============ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 40%, rgba(13,40,50,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(3,5,8,1) 0%, transparent 40%),
+    linear-gradient(180deg, var(--void) 0%, transparent 20%);
+  z-index: 2;
+}
+
+.hero-vortex {
+  position: absolute;
+  inset: -10%;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(45,212,191,0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 45% 30%, rgba(15,240,212,0.04) 0%, transparent 35%);
+  animation: vortexPulse 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes vortexPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.05) rotate(1deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.hero-subtitle-top {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--teal-dim);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.5s forwards;
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 400;
+  color: var(--parchment);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1.5s ease 0.8s forwards;
+  text-shadow: 0 0 60px rgba(45,212,191,0.15);
+}
+
+.hero-title-ru {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--pale);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1.5s ease 1s forwards;
+}
+
+.hero-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--pale);
+  letter-spacing: 0.05em;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  opacity: 0;
+  animation: fadeUp 1.5s ease 1.2s forwards;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--teal-dim);
+  transition: all 0.4s ease;
+  opacity: 0;
+  animation: fadeUp 1.5s ease 1.5s forwards;
+}
+.hero-cta:hover {
+  background: rgba(45,212,191,0.08);
+  border-color: var(--teal);
+  box-shadow: 0 0 30px rgba(45,212,191,0.1);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 2s forwards;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--teal-dim), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ SYMBOL ============ */
+.symbol-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  opacity: 0;
+  animation: fadeUp 1.5s ease 0.3s forwards;
+}
+
+.symbol-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 20px rgba(45,212,191,0.3));
+  animation: symbolPulse 4s ease-in-out infinite;
+}
+
+@keyframes symbolPulse {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(45,212,191,0.2)); }
+  50% { filter: drop-shadow(0 0 30px rgba(45,212,191,0.5)); }
+}
+
+/* ============ OPENING PASSAGE ============ */
+.opening {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(45,212,191,0.02) 0%, transparent 50%),
+    var(--void);
+}
+
+.manuscript-page {
+  position: relative;
+  max-width: 650px;
+  margin: 2rem auto 0;
+  padding: 3rem 3.5rem;
+  background: rgba(10,14,20,0.5);
+  border: 1px solid rgba(45,212,191,0.06);
+  overflow: hidden;
+}
+
+.manuscript-page::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 180px;
+  background: linear-gradient(180deg, transparent 0%, var(--void) 90%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.manuscript-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--bone);
+  line-height: 2;
+}
+
+.manuscript-text p {
+  margin-bottom: 1.2rem;
+  text-indent: 1.5rem;
+}
+
+.manuscript-text p:first-child {
+  text-indent: 0;
+}
+
+.manuscript-continue {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  margin-top: -2rem;
+  padding-bottom: 1rem;
+}
+
+.manuscript-continue a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border: 1px solid var(--teal-dim);
+  background: var(--void);
+  transition: all 0.4s ease;
+}
+.manuscript-continue a:hover {
+  background: rgba(45,212,191,0.08);
+  border-color: var(--teal);
+}
+
+/* ============ SECTIONS ============ */
+section {
+  position: relative;
+  z-index: 2;
+}
+
+.section-padding {
+  padding: 8rem 2rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container-narrow {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--teal-dim);
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  color: var(--parchment);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--teal-dim), transparent);
+  margin-bottom: 2rem;
+}
+
+/* ============ PREMISE SECTION ============ */
+.premise {
+  background: 
+    radial-gradient(ellipse at 30% 0%, rgba(45,212,191,0.03) 0%, transparent 50%),
+    var(--void);
+}
+
+.premise-text {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--pale);
+  line-height: 1.9;
+}
+
+.premise-text em {
+  color: var(--teal);
+  font-style: italic;
+}
+
+.premise-quote {
+  margin: 3rem 0;
+  padding: 2rem 0 2rem 2rem;
+  border-left: 2px solid var(--teal-dim);
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.35rem;
+  font-weight: 200;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.8;
+}
+
+.premise-quote cite {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  font-style: normal;
+  color: var(--teal-dim);
+  letter-spacing: 0.1em;
+}
+
+/* ============ TRILOGY SECTION ============ */
+.trilogy {
+  background: var(--abyss);
+  border-top: 1px solid rgba(45,212,191,0.05);
+  border-bottom: 1px solid rgba(45,212,191,0.05);
+}
+
+.trilogy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 3rem;
+}
+
+.trilogy-card {
+  position: relative;
+  padding: 3rem 2.5rem;
+  background: var(--void);
+  border: 1px solid rgba(45,212,191,0.05);
+  transition: all 0.6s ease;
+  overflow: hidden;
+}
+
+.trilogy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--teal-dim), transparent);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.trilogy-card:hover {
+  border-color: rgba(45,212,191,0.15);
+  background: rgba(10,14,20,0.8);
+}
+.trilogy-card:hover::before { opacity: 1; }
+
+.trilogy-number {
+  font-family: 'Cinzel', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(45,212,191,0.1);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  transition: color 0.6s;
+}
+.trilogy-card:hover .trilogy-number { color: rgba(45,212,191,0.25); }
+
+.trilogy-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--parchment);
+  margin-bottom: 0.3rem;
+}
+
+.trilogy-card-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--teal-dim);
+  margin-bottom: 1.5rem;
+}
+
+.trilogy-card-genre {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(45,212,191,0.05);
+}
+
+.trilogy-card-desc {
+  font-size: 0.95rem;
+  color: var(--pale);
+  line-height: 1.7;
+}
+
+/* ============ EXCERPT SECTION ============ */
+.excerpt {
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(139,32,32,0.04) 0%, transparent 50%),
+    var(--void);
+}
+
+.excerpt-block {
+  position: relative;
+  padding: 3rem;
+  background: rgba(10,14,20,0.6);
+  border: 1px solid rgba(45,212,191,0.05);
+  margin-bottom: 2rem;
+}
+
+.excerpt-block::before {
+  content: '"';
+  position: absolute;
+  top: 1rem; left: 1.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  color: rgba(45,212,191,0.08);
+  line-height: 1;
+}
+
+.excerpt-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
+}
+
+.excerpt-source {
+  margin-top: 1.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal-dim);
+}
+
+/* ============ CHARACTERS ============ */
+.characters {
+  background: var(--abyss);
+  border-top: 1px solid rgba(45,212,191,0.05);
+}
+
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.char-card {
+  padding: 2.5rem;
+  background: var(--void);
+  border: 1px solid rgba(45,212,191,0.05);
+  transition: all 0.4s ease;
+}
+.char-card:hover {
+  border-color: rgba(45,212,191,0.12);
+}
+
+.char-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--parchment);
+  margin-bottom: 0.3rem;
+}
+
+.char-role {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--teal-dim);
+  margin-bottom: 1.2rem;
+}
+
+.char-desc {
+  font-size: 0.95rem;
+  color: var(--pale);
+  line-height: 1.7;
+}
+
+/* ============ PHILOSOPHY SECTION ============ */
+.philosophy {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(45,212,191,0.03) 0%, transparent 40%),
+    var(--void);
+}
+
+.philosophy-central {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.philosophy-question {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  color: var(--parchment);
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+.philosophy-answer {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--pale);
+  line-height: 1.9;
+}
+
+.philosophy-answer em {
+  color: var(--teal);
+  font-style: italic;
+}
+
+/* ============ LATIN STRIP ============ */
+.latin-strip {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: var(--abyss);
+  border-top: 1px solid rgba(45,212,191,0.05);
+  border-bottom: 1px solid rgba(45,212,191,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.latin-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(139,32,32,0.06) 0%, transparent 60%);
+}
+
+.latin-text {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: var(--blood);
+  letter-spacing: 0.15em;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 30px rgba(139,32,32,0.3);
+}
+
+.latin-translation {
+  margin-top: 1rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--mist);
+  position: relative;
+  z-index: 1;
+}
+
+/* ============ WORLD SECTION ============ */
+.world {
+  background: var(--void);
+}
+
+.world-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.world-item {
+  position: relative;
+}
+
+.world-item-icon {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--teal-dim);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.world-item-icon::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--teal-dim);
+}
+
+.world-item-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--parchment);
+  margin-bottom: 0.8rem;
+}
+
+.world-item-desc {
+  font-size: 0.95rem;
+  color: var(--pale);
+  line-height: 1.7;
+}
+
+/* ============ ATMOSPHERE BAND ============ */
+.atmosphere-band {
+  position: relative;
+  height: 50vh;
+  min-height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atmosphere-band-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(45,212,191,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 70%, rgba(57,255,142,0.03) 0%, transparent 40%),
+    var(--void);
+}
+
+.atmosphere-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.atmosphere-main {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 400;
+  color: var(--parchment);
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 40px rgba(45,212,191,0.1);
+}
+
+.atmosphere-sub {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  font-weight: 200;
+  color: var(--pale);
+  letter-spacing: 0.05em;
+}
+
+/* ============ TIMELINE ============ */
+.timeline {
+  background: var(--abyss);
+  border-top: 1px solid rgba(45,212,191,0.05);
+}
+
+.timeline-line {
+  position: relative;
+  padding-left: 3rem;
+  margin-top: 3rem;
+}
+
+.timeline-line::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--teal-dim), rgba(45,212,191,0.05));
+}
+
+.timeline-event {
+  position: relative;
+  padding-bottom: 3rem;
+}
+
+.timeline-event::before {
+  content: '';
+  position: absolute;
+  left: -3rem;
+  top: 0.5rem;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--teal-dim);
+  box-shadow: 0 0 10px rgba(45,212,191,0.3);
+}
+
+.timeline-year {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--teal-dim);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--parchment);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--pale);
+  line-height: 1.7;
+}
+
+/* ============ CTA SECTION ============ */
+.cta-section {
+  padding: 10rem 2rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(45,212,191,0.04) 0%, transparent 50%),
+    var(--void);
+}
+
+.cta-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  color: var(--parchment);
+  margin-bottom: 1.5rem;
+}
+
+.cta-sub {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--pale);
+  margin-bottom: 3rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--teal);
+  text-decoration: none;
+  padding: 1.2rem 3rem;
+  transition: all 0.4s ease;
+}
+.cta-btn:hover {
+  background: var(--teal-glow);
+  box-shadow: 0 0 40px rgba(45,212,191,0.3);
+}
+
+/* ============ FOOTER ============ */
+footer {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: var(--void);
+  border-top: 1px solid rgba(45,212,191,0.05);
+}
+
+.footer-symbol {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.3;
+}
+
+.footer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+/* ============ SCROLL ANIMATIONS ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .trilogy-grid { grid-template-columns: 1fr; }
+  .char-grid { grid-template-columns: 1fr; }
+  .world-items { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  nav { padding: 1.2rem 1.5rem; }
+  .section-padding { padding: 5rem 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero-content { padding: 1rem; }
+  .symbol-container { width: 80px; height: 80px; }
+  .excerpt-block { padding: 2rem 1.5rem; }
+  .trilogy-card { padding: 2rem 1.5rem; }
+}
+
+/* ============ CUSTOM CURSOR GLOW ============ */
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,212,191,0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+}
+</style>
+</head>
+<body>
+
+<div id="fog-overlay"></div>
+<canvas id="particles"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Echoes</a>
+  <ul class="nav-links">
+    <li><a href="#premise">Synopsis</a></li>
+    <li><a href="#trilogy">Trilogy</a></li>
+    <li><a href="#characters">Characters</a></li>
+    <li><a href="#world">Setting</a></li>
+    <li><a href="#timeline">Influences</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-vortex"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="symbol-container">
+      <svg class="symbol-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="48" stroke="rgba(45,212,191,0.4)" stroke-width="0.8"/>
+        <circle cx="60" cy="60" r="35" stroke="rgba(45,212,191,0.2)" stroke-width="0.5"/>
+        <path d="M60 12 C40 45, 80 45, 60 108" stroke="rgba(45,212,191,0.35)" stroke-width="0.7" fill="none"/>
+        <path d="M12 60 C45 40, 45 80, 108 60" stroke="rgba(45,212,191,0.35)" stroke-width="0.7" fill="none"/>
+        <path d="M25 25 C50 55, 70 35, 95 95" stroke="rgba(45,212,191,0.25)" stroke-width="0.5" fill="none"/>
+        <path d="M95 25 C65 50, 55 70, 25 95" stroke="rgba(45,212,191,0.25)" stroke-width="0.5" fill="none"/>
+        <circle cx="60" cy="60" r="5" fill="rgba(45,212,191,0.15)"/>
+        <circle cx="60" cy="60" r="2" fill="rgba(45,212,191,0.5)"/>
+      </svg>
+    </div>
+    <div class="hero-subtitle-top">A Trilogy</div>
+    <h1 class="hero-title">Echoes of the<br>Forgotten Past</h1>
+    <p class="hero-tagline">Seven tapes. A missing journalist. A city that doesn't let you leave.</p>
+    <a href="#premise" class="hero-cta">
+      Enter the Silence
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1"/></svg>
+    </a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PREMISE -->
+<section class="premise section-padding" id="premise">
+  <div class="container-narrow">
+    <div class="section-label reveal">Book I — Shadows of Sintra</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <h2 class="section-title reveal reveal-delay-2">Shadows of Sintra</h2>
+    <p class="premise-text reveal reveal-delay-3">
+      After his grandfather's death, archivist Markus Valente finds seven reels of magnetic tape hidden in a tin box and a letter with no signature: <em>"The tapes are waiting for you. Sintra, Rua das Sombras, 13. Do not trust the silence."</em>
+    </p>
+    <p class="premise-text reveal reveal-delay-4" style="margin-top: 1.5rem;">
+      The tapes hold the voice of Isabella Correia — a journalist who traveled to Sintra in 1987 to investigate the tunnels beneath <em>Quinta da Regaleira</em>. She never came back. Her recordings did. Markus came to Sintra to fill a gap in his family's history. What he finds instead will fill a gap in him.
+    </p>
+    <blockquote class="premise-quote reveal">
+      "Do not listen to the silence, senhorita. Sometimes it answers."
+      <cite>— Senhora Rosa, keeper of the old inn</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- OPENING PASSAGE -->
+<section class="opening section-padding" id="opening">
+  <div class="container-narrow">
+    <div class="section-label reveal">Chapter I</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <h2 class="section-title reveal reveal-delay-2">Read the Opening</h2>
+    <div class="manuscript-page reveal reveal-delay-3">
+      <div class="manuscript-text">
+        <p>The train clattered along the worn rails between Lisbon and Sintra like the dying mechanism of a bygone era. The carriage smelled of metal dust and damp that had soaked into the seat upholstery. Markus Valente sat by the window, his fingers nervously gripping the handle of a battered leather suitcase. Inside lay seven reels of magnetic tape — the only key to an archive his grandfather had kept in secret from everyone. This journey was not a choice for Markus; it was an inevitability. As an archivist, he could not leave the greatest gap of his life unfilled.</p>
+        <p>Sintra received him in silence — thick, tangible, as if the very air was wary. The fog seemed to be born from the stones themselves, clinging to the spires of the Moorish castle and dissolving into the emerald haze of the forests surrounding Quinta da Regaleira. Tourists came here seeking romance; Markus felt that the real Sintra was hiding in the folds of this fog.</p>
+        <p>He pulled a letter from his pocket, its paper already beginning to crumble: "The tapes are waiting for you. Sintra, Rua das Sombras, 13. Do not trust the silence." No signature. No hint of a sender. The letter had arrived one week after António Valente was buried in Coimbra.</p>
+        <p>Stepping onto the platform, he found himself in emptiness. Only an elderly woman in a black shawl, selling chestnuts, watched him with a long, searching gaze.</p>
+        <p>"Rua das Sombras?" she repeated when he asked. Her voice was dry as husks. "The Street of Shadows... Some shadows are best left alone, senhor."</p>
+        <p>She pointed silently toward the hill, where houses clung to one another as if in fear of something unseen.</p>
+        <p>House number 13 looked like a skeleton eaten by time: three floors of peeling plaster, windows shuttered and boarded. Above the roof, a decrepit turret rose incongruously, its window a gaping hole of broken glass. Markus knocked.</p>
+        <p>The door opened a crack, revealing a hunched old man in a long, unseasonably warm overcoat. His face resembled parchment.</p>
+        <p>"Markus Valente?" The old man's voice was quiet, like the rustle of crumbling dust.</p>
+        <p>"Yes. And you are?"</p>
+        <p>"Doctor José Almeida. I've been waiting. Come in."</p>
+      </div>
+    </div>
+    <div class="manuscript-continue reveal">
+      <a href="#">Continue Reading →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LATIN STRIP -->
+<div class="latin-strip">
+  <div class="latin-text reveal">
+    Verba tacita, porta aperta
+  </div>
+  <div class="latin-translation reveal reveal-delay-1">
+    Silent words, open gates
+  </div>
+</div>
+
+<!-- TRILOGY -->
+<section class="trilogy section-padding" id="trilogy">
+  <div class="container">
+    <div class="section-label reveal">The Trilogy</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <h2 class="section-title reveal reveal-delay-2">Three Books. Three Ways of Knowing.</h2>
+    <div class="trilogy-grid">
+      <div class="trilogy-card reveal reveal-delay-1">
+        <div class="trilogy-number">I</div>
+        <div class="trilogy-card-title">Shadows of Sintra</div>
+        <div class="trilogy-card-subtitle">Book I · Gothic Horror</div>
+        <div class="trilogy-card-genre">Gothic Horror · Portugal · 1987–Present</div>
+        <div class="trilogy-card-desc">
+          An archivist inherits seven magnetic tapes and a letter with no signature. They lead him to Sintra, Portugal — a city where fog clings to ancient stones and silence has a voice. Some doors were never meant to be opened.
+        </div>
+      </div>
+      <div class="trilogy-card reveal reveal-delay-2">
+        <div class="trilogy-number">II</div>
+        <div class="trilogy-card-title">The Silence Axiom</div>
+        <div class="trilogy-card-subtitle">Book II · Intellectual Thriller</div>
+        <div class="trilogy-card-genre">Intellectual Thriller · New York · Present</div>
+        <div class="trilogy-card-desc">
+          New York. A psychoanalyst and a cosmologist are drawn into an investigation that challenges everything they know about the nature of consciousness. The deeper they look, the more they realize: some truths are not hidden — they are waiting.
+        </div>
+      </div>
+      <div class="trilogy-card reveal reveal-delay-3">
+        <div class="trilogy-number">III</div>
+        <div class="trilogy-card-title">Edge of Eternity</div>
+        <div class="trilogy-card-subtitle">Book III · Cosmic Philosophy</div>
+        <div class="trilogy-card-genre">Cosmic Philosophy · Galaxy · All Time</div>
+        <div class="trilogy-card-desc">
+          The final volume shifts from streets and tunnels to a scale beyond imagination. Everything you thought you understood changes. The trilogy ends with a question that has no safe answer.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE BAND -->
+<div class="atmosphere-band">
+  <div class="atmosphere-band-bg"></div>
+  <div class="atmosphere-text">
+    <div class="atmosphere-main reveal">
+      Do not listen to the silence.
+    </div>
+    <div class="atmosphere-sub reveal reveal-delay-1">
+      Sometimes it answers.
+    </div>
+  </div>
+</div>
+
+<!-- EXCERPT -->
+<section class="excerpt section-padding" id="excerpt">
+  <div class="container-narrow">
+    <div class="section-label reveal">Voices from the Tapes</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <div class="excerpt-block reveal reveal-delay-2">
+      <p class="excerpt-text">
+        "My name is Isabella Correia. Today is the 13th of October, 1987. I am in Sintra to investigate Quinta da Regaleira. Officially, it is just an estate. But I feel something else is hidden here. Last night I heard music. It was rising from underground. And it was calling me."
+      </p>
+      <div class="excerpt-source">Tape One · Isabella Correia</div>
+    </div>
+    <div class="excerpt-block reveal reveal-delay-3">
+      <p class="excerpt-text">
+        "The tapes chose you, Markus. They came to your grandfather by design. Now it is your turn to catalogue this story."
+      </p>
+      <div class="excerpt-source">Doctor José Almeida</div>
+    </div>
+    <div class="excerpt-block reveal reveal-delay-4">
+      <p class="excerpt-text">
+        "You brought the cold with you, senhor. I know that look. That is the look of someone who walked too long in the fog near Quinta. You should leave."
+      </p>
+      <div class="excerpt-source">A waitress in Sintra</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTERS -->
+<section class="characters section-padding" id="characters">
+  <div class="container">
+    <div class="section-label reveal">The Seekers</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <h2 class="section-title reveal reveal-delay-2">Those Who Listened</h2>
+    <div class="char-grid">
+      <div class="char-card reveal reveal-delay-1">
+        <div class="char-name">Markus Valente</div>
+        <div class="char-role">The Archivist</div>
+        <div class="char-desc">An archivist from Lisbon who has spent his life cataloguing the past. When his grandfather dies, he leaves behind seven magnetic tapes and a letter pointing to Sintra. Markus follows — driven by the one gap in history he cannot leave unfilled.</div>
+      </div>
+      <div class="char-card reveal reveal-delay-2">
+        <div class="char-name">Isabella Correia</div>
+        <div class="char-role">The Voice on the Tapes</div>
+        <div class="char-desc">A journalist from Porto who traveled to Sintra in 1987 to investigate the tunnels beneath Quinta da Regaleira. She recorded seven tapes. Then she vanished. Her voice is the only thing that survived.</div>
+      </div>
+      <div class="char-card reveal reveal-delay-3">
+        <div class="char-name">Rafael Sousa</div>
+        <div class="char-role">The Anchor</div>
+        <div class="char-desc">Historian, skeptic, Markus's oldest friend. Born in Sintra, he knows its legends better than anyone. He has his own reasons for returning — reasons he has never spoken about.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETTING -->
+<section class="world section-padding" id="world">
+  <div class="container">
+    <div class="section-label reveal">Setting</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <h2 class="section-title reveal reveal-delay-2">Sintra, Portugal</h2>
+    <div class="world-items">
+      <div class="world-item reveal reveal-delay-1">
+        <div class="world-item-icon">Place</div>
+        <div class="world-item-title">Quinta da Regaleira</div>
+        <div class="world-item-desc">A labyrinthine estate of grottoes, initiation wells, and underground tunnels carved into the hills of Sintra. A place where architecture, alchemy, and mythology intertwine — and where the boundary between the real and the imagined thins to nothing.</div>
+      </div>
+      <div class="world-item reveal reveal-delay-2">
+        <div class="world-item-icon">Place</div>
+        <div class="world-item-title">Rua das Sombras, 13</div>
+        <div class="world-item-desc">The Street of Shadows. A narrow lane where houses lean into one another as if afraid of something unseen. Number 13 stands at the end — three stories of peeling plaster, shuttered windows, and a crumbling tower with a broken pane of glass.</div>
+      </div>
+      <div class="world-item reveal reveal-delay-3">
+        <div class="world-item-icon">Object</div>
+        <div class="world-item-title">Seven Magnetic Tapes</div>
+        <div class="world-item-desc">Found in a tin box on a dead man's attic. Only the first bears a label: "Sintra, 1987." They contain the voice of a woman who disappeared thirty years ago. What else they contain is the question Markus should not have asked.</div>
+      </div>
+      <div class="world-item reveal reveal-delay-4">
+        <div class="world-item-icon">Atmosphere</div>
+        <div class="world-item-title">The Fog</div>
+        <div class="world-item-desc">In Sintra, fog is not weather. It is landscape. It rises from the stones, clings to the castle spires, and fills the forests with an emerald haze. Tourists find it romantic. Those who stay too long find it something else entirely.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy section-padding" id="philosophy">
+  <div class="container">
+    <div class="philosophy-central">
+      <div class="section-label reveal" style="text-align:center;">The Question</div>
+      <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 2rem;"></div>
+      <h2 class="philosophy-question reveal reveal-delay-2">
+        How far would you go to find the answer to the question that has haunted you since childhood?
+      </h2>
+      <p class="philosophy-answer reveal reveal-delay-3">
+        Some stories are about heroes who fight evil. This is not one of them. This is a story about <em>the price of knowing</em> — and whether the mind that finally reaches the truth can still recognize itself.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- LATIN STRIP 2 -->
+<div class="latin-strip">
+  <div class="latin-text reveal">
+    Cave, quaerens veritatem
+  </div>
+  <div class="latin-translation reveal reveal-delay-1">
+    Beware, seeker of truth
+  </div>
+</div>
+
+<!-- PRAISE -->
+<section class="timeline section-padding" id="timeline">
+  <div class="container-narrow">
+    <div class="section-label reveal">For Readers Of</div>
+    <div class="section-divider reveal reveal-delay-1"></div>
+    <h2 class="section-title reveal reveal-delay-2">If You Loved These, You'll Love This</h2>
+    <div class="timeline-line">
+      <div class="timeline-event reveal">
+        <div class="timeline-year">Atmosphere</div>
+        <div class="timeline-title">H.P. Lovecraft</div>
+        <div class="timeline-desc">The dread of cosmic insignificance. The horror of knowledge that shatters the mind. But where Lovecraft refuses to explain, this trilogy dares to.</div>
+      </div>
+      <div class="timeline-event reveal">
+        <div class="timeline-year">Philosophy</div>
+        <div class="timeline-title">Stanisław Lem — Solaris</div>
+        <div class="timeline-desc">An intelligence beyond human comprehension. The futility of contact. The question of whether understanding is even possible — or desirable.</div>
+      </div>
+      <div class="timeline-event reveal">
+        <div class="timeline-year">Scale</div>
+        <div class="timeline-title">Liu Cixin — The Three-Body Problem</div>
+        <div class="timeline-desc">A story that begins in one room and ends among the stars. The architecture of a trilogy that expands with each volume until the universe itself is at stake.</div>
+      </div>
+      <div class="timeline-event reveal">
+        <div class="timeline-year">Tension</div>
+        <div class="timeline-title">Dark (Netflix)</div>
+        <div class="timeline-desc">Time loops, family curses, and the suffocating atmosphere of a European town hiding impossible secrets beneath its surface.</div>
+      </div>
+      <div class="timeline-event reveal" style="padding-bottom:0;">
+        <div class="timeline-year">Heart</div>
+        <div class="timeline-title">Annihilation — Jeff VanderMeer</div>
+        <div class="timeline-desc">The beauty and terror of transformation. A boundary that changes everyone who crosses it. The question of whether the person who returns is still the person who left.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="symbol-container reveal" style="margin-bottom:3rem;">
+    <svg class="symbol-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="48" stroke="rgba(45,212,191,0.3)" stroke-width="0.8"/>
+      <circle cx="60" cy="60" r="35" stroke="rgba(45,212,191,0.15)" stroke-width="0.5"/>
+      <path d="M60 12 C40 45, 80 45, 60 108" stroke="rgba(45,212,191,0.3)" stroke-width="0.7" fill="none"/>
+      <path d="M12 60 C45 40, 45 80, 108 60" stroke="rgba(45,212,191,0.3)" stroke-width="0.7" fill="none"/>
+      <path d="M25 25 C50 55, 70 35, 95 95" stroke="rgba(45,212,191,0.2)" stroke-width="0.5" fill="none"/>
+      <path d="M95 25 C65 50, 55 70, 25 95" stroke="rgba(45,212,191,0.2)" stroke-width="0.5" fill="none"/>
+      <circle cx="60" cy="60" r="5" fill="rgba(45,212,191,0.1)"/>
+      <circle cx="60" cy="60" r="2" fill="rgba(45,212,191,0.4)"/>
+    </svg>
+  </div>
+  <h2 class="cta-title reveal">You've read the opening.<br>Now you need to know what's on the tapes.</h2>
+  <p class="cta-sub reveal reveal-delay-1">Book I — Shadows of Sintra</p>
+  <a href="#" class="cta-btn reveal reveal-delay-2">Get the Book</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <svg class="footer-symbol" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="16" stroke="rgba(45,212,191,0.2)" stroke-width="0.5"/>
+    <path d="M20 4 C14 18, 26 18, 20 36" stroke="rgba(45,212,191,0.2)" stroke-width="0.5" fill="none"/>
+    <path d="M4 20 C18 14, 18 26, 36 20" stroke="rgba(45,212,191,0.2)" stroke-width="0.5" fill="none"/>
+  </svg>
+  <div class="footer-text">
+    Echoes of the Forgotten Past &nbsp;·&nbsp; © 2025 &nbsp;·&nbsp; Some Doors Were Never Meant to Be Opened
+  </div>
+</footer>
+
+<script>
+// ============ PARTICLES ============
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.15;
+    this.speedY = (Math.random() - 0.5) * 0.15;
+    this.opacity = Math.random() * 0.4 + 0.05;
+    this.pulse = Math.random() * Math.PI * 2;
+    this.pulseSpeed = Math.random() * 0.01 + 0.005;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.pulse += this.pulseSpeed;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+      this.reset();
+    }
+  }
+  draw() {
+    const o = this.opacity * (0.5 + 0.5 * Math.sin(this.pulse));
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(45, 212, 191, ${o})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ============ SCROLL REVEAL ============
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+reveals.forEach(el => revealObserver.observe(el));
+
+// ============ NAV SCROLL ============
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// ============ CURSOR GLOW ============
+const glow = document.getElementById('cursorGlow');
+let mouseX = 0, mouseY = 0;
+let glowX = 0, glowY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function updateGlow() {
+  glowX += (mouseX - glowX) * 0.08;
+  glowY += (mouseY - glowY) * 0.08;
+  glow.style.left = glowX + 'px';
+  glow.style.top = glowY + 'px';
+  requestAnimationFrame(updateGlow);
+}
+updateGlow();
+
+// ============ SMOOTH SCROLL ============
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
