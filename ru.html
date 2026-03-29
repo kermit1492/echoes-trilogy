@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Echoes of the Forgotten Past — A Trilogy</title>
+<title>Эхо позабытого прошлого — Трилогия</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&display=swap" rel="stylesheet">
 <style>
@@ -500,7 +500,8 @@ section {
 .trilogy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  grid-template-rows: repeat(5, auto);
+  gap: 0 2px;
   margin-top: 3rem;
 }
 
@@ -511,6 +512,10 @@ section {
   border: 1px solid rgba(45,212,191,0.05);
   transition: all 0.6s ease;
   overflow: hidden;
+  display: grid;
+  grid-row: span 5;
+  grid-template-rows: subgrid;
+  row-gap: 0;
 }
 
 .trilogy-card::before {
@@ -528,6 +533,12 @@ section {
   background: rgba(10,14,20,0.8);
 }
 .trilogy-card:hover::before { opacity: 1; }
+
+.trilogy-card-desc {
+  font-size: 0.95rem;
+  color: var(--pale);
+  line-height: 1.7;
+}
 
 .trilogy-number {
   font-family: 'Cinzel', serif;
@@ -565,12 +576,6 @@ section {
   margin-bottom: 1.2rem;
   padding-bottom: 1.2rem;
   border-bottom: 1px solid rgba(45,212,191,0.05);
-}
-
-.trilogy-card-desc {
-  font-size: 0.95rem;
-  color: var(--pale);
-  line-height: 1.7;
 }
 
 /* ============ EXCERPT SECTION ============ */
@@ -979,7 +984,8 @@ footer {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
-  .trilogy-grid { grid-template-columns: 1fr; }
+  .trilogy-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .trilogy-card { grid-row: auto; grid-template-rows: auto; }
   .char-grid { grid-template-columns: 1fr; }
   .world-items { grid-template-columns: 1fr; }
   .nav-links { display: none; }
@@ -1019,15 +1025,15 @@ footer {
 <nav id="mainNav">
   <a href="#" class="nav-logo"><span class="nav-logo-text"></span></a>
   <ul class="nav-links">
-    <li><a href="#premise">Synopsis</a></li>
-    <li><a href="#trilogy">Trilogy</a></li>
-    <li><a href="#characters">Characters</a></li>
-    <li><a href="#world">Setting</a></li>
-    <li><a href="#timeline">Influences</a></li>
+    <li><a href="#premise">Сюжет</a></li>
+    <li><a href="#trilogy">Трилогия</a></li>
+    <li><a href="#characters">Герои</a></li>
+    <li><a href="#world">Место</a></li>
+    <li><a href="#timeline">Вдохновение</a></li>
   </ul>
   <div class="lang-switch">
-    <a href="index.html" class="active">EN</a>
-    <a href="ru.html">RU</a>
+    <a href="index.html">EN</a>
+    <a href="ru.html" class="active">RU</a>
   </div>
 </nav>
 
@@ -1048,11 +1054,11 @@ footer {
         <circle cx="60" cy="60" r="2" fill="rgba(45,212,191,0.5)"/>
       </svg>
     </div>
-    <div class="hero-subtitle-top">A Trilogy</div>
-    <h1 class="hero-title">Echoes of the<br>Forgotten Past</h1>
-    <p class="hero-tagline">Seven tapes. A missing journalist. A city that doesn't let you leave.</p>
+    <div class="hero-subtitle-top">Трилогия</div>
+    <h1 class="hero-title">Эхо позабытого<br>прошлого</h1>
+    <p class="hero-tagline">Семь кассет. Пропавшая журналистка. Город, который не отпускает.</p>
     <a href="#premise" class="hero-cta">
-      Enter the Silence
+      Войти в тишину
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1"/></svg>
     </a>
   </div>
@@ -1064,18 +1070,18 @@ footer {
 <!-- PREMISE -->
 <section class="premise section-padding" id="premise">
   <div class="container-narrow">
-    <div class="section-label reveal">Book I — Shadows of Sintra</div>
+    <div class="section-label reveal">Книга I — Тени Синтры</div>
     <div class="section-divider reveal reveal-delay-1"></div>
-    <h2 class="section-title reveal reveal-delay-2">Shadows of Sintra</h2>
+    <h2 class="section-title reveal reveal-delay-2">Тени Синтры</h2>
     <p class="premise-text reveal reveal-delay-3">
-      After his grandfather's death, archivist Markus Valente finds seven reels of magnetic tape hidden in a tin box and a letter with no signature: <em>"The tapes are waiting for you. Sintra, Rua das Sombras, 13. Do not trust the silence."</em>
+      После смерти деда архивариус Маркус Валенте находит в жестяной коробке семь катушек магнитной ленты и письмо без подписи: <em>«Кассеты ждут тебя. Синтра, Rua das Sombras, 13. Не доверяй тишине.»</em>
     </p>
     <p class="premise-text reveal reveal-delay-4" style="margin-top: 1.5rem;">
-      The tapes hold the voice of Isabella Correia — a journalist who traveled to Sintra in 1987 to investigate the tunnels beneath <em>Quinta da Regaleira</em>. She never came back. Her recordings did. Markus came to Sintra to fill a gap in his family's history. What he finds instead will fill a gap in him.
+      На кассетах — голос Изабеллы Коррейа, журналистки из Порту, которая приехала в Синтру в 1987 году исследовать тоннели под <em>Quinta da Regaleira</em>. Она не вернулась. Записи — вернулись. Маркус приехал в Синтру закрыть пробел в истории семьи. То, что он найдёт, заполнит пробел в нём самом.
     </p>
     <blockquote class="premise-quote reveal">
-      "Do not listen to the silence, senhorita. Sometimes it answers."
-      <cite>— Senhora Rosa, keeper of the old inn</cite>
+      «Не вслушивайтесь в тишину, сеньорита. Иногда она отвечает.»
+      <cite>— Сеньора Роза, хозяйка старой гостиницы</cite>
     </blockquote>
   </div>
 </section>
@@ -1086,42 +1092,42 @@ footer {
     Verba tacita, porta aperta
   </div>
   <div class="latin-translation reveal reveal-delay-1">
-    Silent words, open gates
+    Молчащие слова, открытые врата
   </div>
 </div>
 
 <!-- TRILOGY -->
 <section class="trilogy section-padding" id="trilogy">
   <div class="container">
-    <div class="section-label reveal">The Trilogy</div>
+    <div class="section-label reveal">Трилогия</div>
     <div class="section-divider reveal reveal-delay-1"></div>
-    <h2 class="section-title reveal reveal-delay-2">Three Books. Three Ways of Knowing.</h2>
+    <h2 class="section-title reveal reveal-delay-2">Три книги. Три способа познания.</h2>
     <div class="trilogy-grid">
       <div class="trilogy-card reveal reveal-delay-1">
         <div class="trilogy-number">I</div>
-        <div class="trilogy-card-title">Shadows of Sintra</div>
-        <div class="trilogy-card-subtitle">Book I · Gothic Horror</div>
-        <div class="trilogy-card-genre">Gothic Horror · Portugal · 1987–Present</div>
+        <div class="trilogy-card-title">Тени Синтры</div>
+        <div class="trilogy-card-subtitle">Книга I · Готический хоррор</div>
+        <div class="trilogy-card-genre">Готический хоррор · Португалия</div>
         <div class="trilogy-card-desc">
-          An archivist inherits seven magnetic tapes and a letter with no signature. They lead him to Sintra, Portugal — a city where fog clings to ancient stones and silence has a voice. What he discovers will not stay in Sintra.
+          Архивариус наследует семь магнитных кассет и письмо без подписи. Они ведут его в Синтру — город, где туман цепляется за древние камни, а тишина имеет свой голос. То, что он обнаружит, не останется в Синтре.
         </div>
       </div>
       <div class="trilogy-card reveal reveal-delay-2">
         <div class="trilogy-number">II</div>
-        <div class="trilogy-card-title">The Silence Axiom</div>
-        <div class="trilogy-card-subtitle">Book II · Intellectual Thriller</div>
-        <div class="trilogy-card-genre">Intellectual Thriller · New York · Present</div>
+        <div class="trilogy-card-title">Аксиома Тишины</div>
+        <div class="trilogy-card-subtitle">Книга II · Интеллектуальный триллер</div>
+        <div class="trilogy-card-genre">Интеллектуальный триллер · Нью-Йорк</div>
         <div class="trilogy-card-desc">
-          New York. A psychoanalyst and a cosmologist are drawn into an investigation that challenges everything they know about the nature of consciousness. The deeper they look, the more they realize: some truths are not hidden — they are waiting.
+          Нью-Йорк. Психоаналитик и космолог втянуты в расследование, которое ставит под сомнение всё, что они знали о природе сознания. Чем глубже они смотрят, тем яснее понимают: некоторые истины не спрятаны — они ждут.
         </div>
       </div>
       <div class="trilogy-card reveal reveal-delay-3">
         <div class="trilogy-number">III</div>
-        <div class="trilogy-card-title">Edge of Eternity</div>
-        <div class="trilogy-card-subtitle">Book III · Cosmic Philosophy</div>
-        <div class="trilogy-card-genre">Cosmic Philosophy · Galaxy · All Time</div>
+        <div class="trilogy-card-title">Грань Вечности</div>
+        <div class="trilogy-card-subtitle">Книга III · Космическая философия</div>
+        <div class="trilogy-card-genre">Космическая философия · Галактика</div>
         <div class="trilogy-card-desc">
-          The final volume shifts from streets and tunnels to a scale beyond imagination. Everything you thought you understood changes. The trilogy ends with a question that has no safe answer.
+          Финальный том переходит от улиц и тоннелей к масштабу за пределами воображения. Всё, что вы думали, что поняли, — изменится. Трилогия заканчивается вопросом, на который нет безопасного ответа.
         </div>
       </div>
     </div>
@@ -1133,10 +1139,10 @@ footer {
   <div class="atmosphere-band-bg"></div>
   <div class="atmosphere-text">
     <div class="atmosphere-main reveal">
-      It didn't start in Sintra.
+      Это началось не в Синтре.
     </div>
     <div class="atmosphere-sub reveal reveal-delay-1">
-      It won't end there.
+      И не закончится здесь.
     </div>
   </div>
 </div>
@@ -1144,25 +1150,25 @@ footer {
 <!-- EXCERPT -->
 <section class="excerpt section-padding" id="excerpt">
   <div class="container-narrow">
-    <div class="section-label reveal">Voices from the Tapes</div>
+    <div class="section-label reveal">Голоса с кассет</div>
     <div class="section-divider reveal reveal-delay-1"></div>
     <div class="excerpt-block reveal reveal-delay-2">
       <p class="excerpt-text">
-        "My name is Isabella Correia. Today is the 13th of October, 1987. I am in Sintra to investigate Quinta da Regaleira. Officially, it is just an estate. But I feel something else is hidden here. Last night I heard music. It was rising from underground. And it was calling me."
+        «Меня зовут Изабелла Коррейа. Сегодня 13 октября 1987 года. Я в Синтре, чтобы расследовать Quinta da Regaleira. Официально — это просто поместье. Но я чувствую, что здесь скрыто что-то ещё. Прошлой ночью я слышала музыку. Она поднималась из-под земли. И она звала меня.»
       </p>
-      <div class="excerpt-source">Tape One · Isabella Correia</div>
+      <div class="excerpt-source">Кассета первая · Изабелла Коррейа</div>
     </div>
     <div class="excerpt-block reveal reveal-delay-3">
       <p class="excerpt-text">
-        "The tapes chose you, Markus. They came to your grandfather by design. Now it is your turn to catalogue this story."
+        «Кассеты выбрали тебя, Маркус. Они попали к твоему деду не случайно. Теперь твоя очередь каталогизировать эту историю.»
       </p>
-      <div class="excerpt-source">Doctor José Almeida</div>
+      <div class="excerpt-source">Доктор Жозе Алмейда</div>
     </div>
     <div class="excerpt-block reveal reveal-delay-4">
       <p class="excerpt-text">
-        "You brought the cold with you, senhor. I know that look. That is the look of someone who walked too long in the fog near Quinta. You should leave."
+        «Вы принесли холод с собой, сеньор. Я знаю этот взгляд. Так смотрят те, кто слишком долго гулял в тумане у Quinta. Вам следует уехать.»
       </p>
-      <div class="excerpt-source">A waitress in Sintra</div>
+      <div class="excerpt-source">Официантка в Синтре</div>
     </div>
   </div>
 </section>
@@ -1170,55 +1176,55 @@ footer {
 <!-- CHARACTERS -->
 <section class="characters section-padding" id="characters">
   <div class="container">
-    <div class="section-label reveal">The Seekers</div>
+    <div class="section-label reveal">Искатели</div>
     <div class="section-divider reveal reveal-delay-1"></div>
-    <h2 class="section-title reveal reveal-delay-2">Those Who Listened</h2>
+    <h2 class="section-title reveal reveal-delay-2">Те, кто вслушался</h2>
     <div class="char-grid">
       <div class="char-card reveal reveal-delay-1">
-        <div class="char-name">Markus Valente</div>
-        <div class="char-role">The Archivist</div>
-        <div class="char-desc">An archivist from Lisbon who has spent his life cataloguing the past. When his grandfather dies, he leaves behind seven magnetic tapes and a letter pointing to Sintra. Markus follows — driven by the one gap in history he cannot leave unfilled.</div>
+        <div class="char-name">Маркус Валенте</div>
+        <div class="char-role">Архивариус</div>
+        <div class="char-desc">Архивариус из Лиссабона, всю жизнь каталогизировавший прошлое. После смерти деда ему достаются семь магнитных кассет и письмо, указывающее на Синтру. Маркус едет — движимый единственным пробелом в истории, который не может оставить незаполненным.</div>
       </div>
       <div class="char-card reveal reveal-delay-2">
-        <div class="char-name">Isabella Correia</div>
-        <div class="char-role">The Voice on the Tapes</div>
-        <div class="char-desc">A journalist from Porto who traveled to Sintra in 1987 to investigate the tunnels beneath Quinta da Regaleira. She recorded seven tapes. Then she vanished. Her voice is the only thing that survived.</div>
+        <div class="char-name">Изабелла Коррейа</div>
+        <div class="char-role">Голос на кассетах</div>
+        <div class="char-desc">Журналистка из Порту, приехавшая в Синтру в 1987 году исследовать тоннели под Quinta da Regaleira. Она записала семь кассет. Потом исчезла. Её голос — единственное, что уцелело.</div>
       </div>
       <div class="char-card reveal reveal-delay-3">
-        <div class="char-name">Rafael Sousa</div>
-        <div class="char-role">The Anchor</div>
-        <div class="char-desc">Historian, skeptic, Markus's oldest friend. Born in Sintra, he knows its legends better than anyone. He has his own reasons for returning — reasons he has never spoken about.</div>
+        <div class="char-name">Рафаэль Соуза</div>
+        <div class="char-role">Якорь</div>
+        <div class="char-desc">Историк, скептик, старейший друг Маркуса. Родился в Синтре, знает её легенды лучше всех. У него свои причины вернуться — причины, о которых он никогда не говорил.</div>
       </div>
     </div>
-    <p class="reveal" style="margin-top: 3rem; text-align: center; font-family: 'Crimson Pro', serif; font-size: 0.95rem; font-style: italic; color: var(--mist);">There are others. In other cities. Looking for the same thing.</p>
+    <p class="reveal" style="margin-top: 3rem; text-align: center; font-family: 'Crimson Pro', serif; font-size: 0.95rem; font-style: italic; color: var(--mist);">Есть и другие. В других городах. Ищущие то же самое.</p>
   </div>
 </section>
 <section class="world section-padding" id="world">
   <div class="container">
-    <div class="section-label reveal">Setting</div>
+    <div class="section-label reveal">Место действия</div>
     <div class="section-divider reveal reveal-delay-1"></div>
-    <h2 class="section-title reveal reveal-delay-2">Sintra, Portugal</h2>
-    <p class="premise-text reveal reveal-delay-3" style="color: var(--mist); font-size: 1rem; margin-bottom: 3rem; max-width: 600px;">This is where it begins. Later, the geography changes — from fog to glass towers, from tunnels to the spaces between stars.</p>
+    <h2 class="section-title reveal reveal-delay-2">Синтра, Португалия</h2>
+    <p class="premise-text reveal reveal-delay-3" style="color: var(--mist); font-size: 1rem; margin-bottom: 3rem; max-width: 600px;">Здесь всё начинается. Потом география изменится — от тумана к стеклянным башням, от тоннелей к пространствам между звёзд.</p>
     <div class="world-items">
       <div class="world-item reveal reveal-delay-1">
-        <div class="world-item-icon">Place</div>
+        <div class="world-item-icon">Место</div>
         <div class="world-item-title">Quinta da Regaleira</div>
-        <div class="world-item-desc">A labyrinthine estate of grottoes, initiation wells, and underground tunnels carved into the hills of Sintra. A place where architecture, alchemy, and mythology intertwine — and where the boundary between the real and the imagined thins to nothing.</div>
+        <div class="world-item-desc">Лабиринт гротов, инициатических колодцев и подземных тоннелей, вырезанных в холмах Синтры. Место, где архитектура, алхимия и мифология переплетаются — и где граница между реальным и воображаемым истончается до нуля.</div>
       </div>
       <div class="world-item reveal reveal-delay-2">
-        <div class="world-item-icon">Place</div>
+        <div class="world-item-icon">Место</div>
         <div class="world-item-title">Rua das Sombras, 13</div>
-        <div class="world-item-desc">The Street of Shadows. A narrow lane where houses lean into one another as if afraid of something unseen. Number 13 stands at the end — three stories of peeling plaster, shuttered windows, and a crumbling tower with a broken pane of glass.</div>
+        <div class="world-item-desc">Улица Теней. Узкий переулок, где дома жмутся друг к другу, словно боясь чего-то невидимого. Дом номер 13 стоит в самом конце — три этажа облупившейся штукатурки, заколоченные окна и обветшалая башенка с разбитым стеклом.</div>
       </div>
       <div class="world-item reveal reveal-delay-3">
-        <div class="world-item-icon">Object</div>
-        <div class="world-item-title">Seven Magnetic Tapes</div>
-        <div class="world-item-desc">Found in a tin box on a dead man's attic. Only the first bears a label: "Sintra, 1987." They contain the voice of a woman who disappeared thirty years ago. What else they contain is the question Markus should not have asked.</div>
+        <div class="world-item-icon">Объект</div>
+        <div class="world-item-title">Семь магнитных кассет</div>
+        <div class="world-item-desc">Найдены в жестяной коробке на чердаке мёртвого человека. Только на первой есть надпись: «Синтра, 1987». На них — голос женщины, исчезнувшей тридцать лет назад. Что ещё на них записано — вопрос, который Маркусу не стоило задавать.</div>
       </div>
       <div class="world-item reveal reveal-delay-4">
-        <div class="world-item-icon">Atmosphere</div>
-        <div class="world-item-title">The Fog</div>
-        <div class="world-item-desc">In Sintra, fog is not weather. It is landscape. It rises from the stones, clings to the castle spires, and fills the forests with an emerald haze. Tourists find it romantic. Those who stay too long find it something else entirely.</div>
+        <div class="world-item-icon">Атмосфера</div>
+        <div class="world-item-title">Туман</div>
+        <div class="world-item-desc">В Синтре туман — не погода. Это ландшафт. Он поднимается из камней, цепляется за шпили замка и заполняет леса изумрудной дымкой. Туристы находят это романтичным. Те, кто остаётся слишком долго, находят в этом нечто иное.</div>
       </div>
     </div>
   </div>
@@ -1228,13 +1234,13 @@ footer {
 <section class="philosophy section-padding" id="philosophy">
   <div class="container">
     <div class="philosophy-central">
-      <div class="section-label reveal" style="text-align:center;">The Question</div>
+      <div class="section-label reveal" style="text-align:center;">Вопрос</div>
       <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 2rem;"></div>
       <h2 class="philosophy-question reveal reveal-delay-2">
-        How far would you go to find the answer to the question that has haunted you since childhood?
+        Как далеко вы готовы зайти, чтобы найти ответ на вопрос, который преследует вас с детства?
       </h2>
       <p class="philosophy-answer reveal reveal-delay-3">
-        Some stories are about heroes who fight evil. This is not one of them. This is a story about <em>the price of knowing</em> — and whether the mind that finally reaches the truth can still recognize itself. It begins in a house in Sintra. It does not end on this planet.
+        Некоторые истории — о героях, которые сражаются со злом. Это не одна из них. Это история о <em>цене знания</em> — и о том, сможет ли разум, наконец добравшийся до истины, узнать самого себя. Она начинается в доме в Синтре. Она не заканчивается на этой планете.
       </p>
     </div>
   </div>
@@ -1246,41 +1252,40 @@ footer {
     Cave, quaerens veritatem
   </div>
   <div class="latin-translation reveal reveal-delay-1">
-    Beware, seeker of truth
+    Берегись, ищущий истину
   </div>
 </div>
 
 <!-- PRAISE -->
 <section class="timeline section-padding" id="timeline">
   <div class="container-narrow">
-    <div class="section-label reveal">For Readers Of</div>
+    <div class="section-label reveal">Вдохновение</div>
     <div class="section-divider reveal reveal-delay-1"></div>
-    <h2 class="section-title reveal reveal-delay-2">If You Loved These, You'll Love This</h2>
     <div class="timeline-line">
       <div class="timeline-event reveal">
-        <div class="timeline-year">Atmosphere</div>
-        <div class="timeline-title">H.P. Lovecraft</div>
-        <div class="timeline-desc">The dread of cosmic insignificance. The horror of knowledge that shatters the mind. But where Lovecraft refuses to explain, this trilogy dares to.</div>
+        <div class="timeline-year">Атмосфера</div>
+        <div class="timeline-title">Г. Ф. Лавкрафт</div>
+        <div class="timeline-desc">Ужас космической ничтожности. Страх перед знанием, которое разрушает разум. Но там, где Лавкрафт отказывается объяснять, эта трилогия решается.</div>
       </div>
       <div class="timeline-event reveal">
-        <div class="timeline-year">Philosophy</div>
-        <div class="timeline-title">Stanisław Lem — Solaris</div>
-        <div class="timeline-desc">An intelligence beyond human comprehension. The futility of contact. The question of whether understanding is even possible — or desirable.</div>
+        <div class="timeline-year">Философия</div>
+        <div class="timeline-title">Станислав Лем — «Солярис»</div>
+        <div class="timeline-desc">Разум за пределами человеческого понимания. Тщетность контакта. Вопрос о том, возможно ли понимание — и желанно ли оно.</div>
       </div>
       <div class="timeline-event reveal">
-        <div class="timeline-year">Scale</div>
-        <div class="timeline-title">Liu Cixin — The Three-Body Problem</div>
-        <div class="timeline-desc">A story that begins in one room and ends among the stars. The architecture of a trilogy that expands with each volume until the universe itself is at stake.</div>
+        <div class="timeline-year">Масштаб</div>
+        <div class="timeline-title">Лю Цысинь — «Задача трёх тел»</div>
+        <div class="timeline-desc">История, которая начинается в одной комнате и заканчивается среди звёзд. Архитектура трилогии, расширяющейся с каждым томом, пока на кону не оказывается сама вселенная.</div>
       </div>
       <div class="timeline-event reveal">
-        <div class="timeline-year">Tension</div>
-        <div class="timeline-title">Dark (Netflix)</div>
-        <div class="timeline-desc">Time loops, family curses, and the suffocating atmosphere of a European town hiding impossible secrets beneath its surface.</div>
+        <div class="timeline-year">Напряжение</div>
+        <div class="timeline-title">«Тьма» (Dark, Netflix)</div>
+        <div class="timeline-desc">Временные петли, семейные проклятия и удушающая атмосфера европейского города, скрывающего невозможные тайны под своей поверхностью.</div>
       </div>
       <div class="timeline-event reveal" style="padding-bottom:0;">
-        <div class="timeline-year">Heart</div>
-        <div class="timeline-title">Annihilation — Jeff VanderMeer</div>
-        <div class="timeline-desc">The beauty and terror of transformation. A boundary that changes everyone who crosses it. The question of whether the person who returns is still the person who left.</div>
+        <div class="timeline-year">Сердце</div>
+        <div class="timeline-title">«Аннигиляция» — Джефф Вандермеер</div>
+        <div class="timeline-desc">Красота и ужас трансформации. Граница, которая меняет каждого, кто её пересекает. Вопрос о том, остаётся ли человек, вернувшийся оттуда, тем же человеком, который туда ушёл.</div>
       </div>
     </div>
   </div>
@@ -1292,7 +1297,7 @@ footer {
     A domo ad astra, ab astris ad silentium
   </div>
   <div class="latin-translation reveal reveal-delay-1">
-    From the house to the stars, from the stars to the silence
+    От дома к звёздам, от звёзд к тишине
   </div>
 </div>
 
@@ -1310,10 +1315,10 @@ footer {
       <circle cx="60" cy="60" r="2" fill="rgba(45,212,191,0.4)"/>
     </svg>
   </div>
-  <h2 class="cta-title reveal">Seven tapes. One question.<br>Are you ready to hear the answer?</h2>
-  <p class="cta-sub reveal reveal-delay-1">Book I — Shadows of Sintra</p>
-  <a href="shadows-of-sintra.html" class="cta-btn reveal reveal-delay-2">Enter the Silence</a>
-  <p class="reveal reveal-delay-3" style="margin-top: 3rem; font-family: 'Crimson Pro', serif; font-size: 0.9rem; font-style: italic; color: var(--mist);">The first of three doors.</p>
+  <h2 class="cta-title reveal">Семь кассет. Один вопрос.<br>Готовы услышать ответ?</h2>
+  <p class="cta-sub reveal reveal-delay-1">Книга I — Тени Синтры</p>
+  <a href="teni-sintry.html" class="cta-btn reveal reveal-delay-2">Войти в тишину</a>
+  <p class="reveal reveal-delay-3" style="margin-top: 3rem; font-family: 'Crimson Pro', serif; font-size: 0.9rem; font-style: italic; color: var(--mist);">Первая из трёх дверей.</p>
 </section>
 
 <!-- FOOTER -->
@@ -1324,7 +1329,7 @@ footer {
     <path d="M4 20 C18 14, 18 26, 36 20" stroke="rgba(45,212,191,0.2)" stroke-width="0.5" fill="none"/>
   </svg>
   <div class="footer-text">
-    Echoes of the Forgotten Past &nbsp;·&nbsp; © 2025 &nbsp;·&nbsp; Sintra · New York · The Stars
+    Эхо позабытого прошлого &nbsp;·&nbsp; © 2025 &nbsp;·&nbsp; Синтра · Нью-Йорк · Звёзды
   </div>
 </footer>
 
@@ -1431,13 +1436,13 @@ updateGlow();
 const logoText = document.querySelector('.nav-logo-text');
 const sectionPhrases = [
   { id: 'hero',       text: '' },
-  { id: 'premise',    text: 'Do not trust the silence' },
-  { id: 'trilogy',    text: 'Sintra. New York. Beyond.' },
-  { id: 'excerpt',    text: 'Listen carefully' },
-  { id: 'characters', text: 'Some doors don\u2019t close' },
-  { id: 'world',      text: 'The fog knows your name' },
-  { id: 'philosophy', text: 'How much truth can you hold?' },
-  { id: 'timeline',   text: 'This story finds you' },
+  { id: 'premise',    text: 'Не доверяй тишине' },
+  { id: 'trilogy',    text: 'Синтра. Нью-Йорк. Дальше.' },
+  { id: 'excerpt',    text: 'Вслушайся' },
+  { id: 'characters', text: 'Некоторые двери не закрываются' },
+  { id: 'world',      text: 'Туман знает твоё имя' },
+  { id: 'philosophy', text: 'Сколько правды ты выдержишь?' },
+  { id: 'timeline',   text: 'Эта история найдёт тебя' },
 ];
 
 let currentPhrase = '';
